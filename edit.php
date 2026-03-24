@@ -1,45 +1,67 @@
 <?php
-include('db.php');
+include 'db.php';
 
-$id = $_GET['id'];
-
-// Get current data
-$stmt = $db->prepare("SELECT * FROM new1 WHERE StudentID = ?");
-$stmt->bind_param("i", $id);
-$stmt->execute();
-$result = $stmt->get_result();
-$s = $result->fetch_assoc();
-
-// Update logic
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $v = $_POST['v_naam']; 
-    $a = $_POST['a_naam']; 
-    $e = $_POST['e_mail'];
-
-    $update = $db->prepare("UPDATE new1 SET Voornaam=?, Achternaam=?, Email=? WHERE StudentID=?");
-    $update->bind_param("sssi", $v, $a, $e, $id);
-    
-    if($update->execute()) {
-        header("Location: index.php");
-    }
+// Check of er een ID is meegegeven
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM new1 WHERE StudentID = $id";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
 <head>
-    <title>Edit Student</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cliënt Bewerken - KW1C</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body class="container mt-5">
-    <div class="card p-4 shadow-sm">
-        <h2>Edit Student Details</h2>
-        <form method="POST">
-            <input type="text" name="v_naam" class="form-control mb-2" value="<?php echo $s['Voornaam']; ?>" required>
-            <input type="text" name="a_naam" class="form-control mb-2" value="<?php echo $s['Achternaam']; ?>" required>
-            <input type="email" name="e_mail" class="form-control mb-2" value="<?php echo $s['Email']; ?>" required>
-            <button type="submit" class="btn btn-warning w-100">Update Student</button>
-            <a href="index.php" class="btn btn-link w-100 text-secondary">Cancel</a>
-        </form>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Cliëntgegevens Aanpassen</h4>
+                </div>
+                <div class="card-body">
+                    <form action="update.php" method="POST">
+                        <input type="hidden" name="id" value="<?php echo $row['StudentID']; ?>">
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Voornaam</label>
+                            <input type="text" name="voornaam" class="form-control" value="<?php echo $row['Voornaam']; ?>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tussenvoegsel</label>
+                            <input type="text" name="tussenvoegsel" class="form-control" value="<?php echo $row['Tussenvoegsel']; ?>">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Achternaam</label>
+                            <input type="text" name="achternaam" class="form-control" value="<?php echo $row['Achternaam']; ?>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">E-mailadres</label>
+                            <input type="email" name="email" class="form-control" value="<?php echo $row['Email']; ?>" required>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success">Wijzigingen Opslaan</button>
+                            <a href="index.php" class="btn btn-secondary">Annuleren</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
+
 </body>
 </html>
