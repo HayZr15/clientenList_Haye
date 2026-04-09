@@ -1,35 +1,23 @@
-README - Studentenbeheer Systeem (KW1C)
-Projectomschrijving:
-Dit is een PHP-applicatie voor het beheren van studentgegevens. Het systeem is gekoppeld aan een MySQL-database en bevat een volledige lijst van 1999 studenten, geïmporteerd uit het verstrekte CSV-bestand.
+# Client Management System (KW1C Project)
 
-Functies:
+## Project Description
+This is a PHP-based web application designed to manage client data. The system is connected to a MySQL database and handles a dataset of nearly 2000 records.
 
-Overzicht: Bekijken van alle ingeschreven studenten (Bootstrap interface).
+## Features (CRUD)
+* **Read:** View a complete overview of all registered clients in a Bootstrap-styled table.
+* **Create:** Register new clients using a web form.
+* **Update:** Edit existing client information.
+* **Delete:** Remove clients from the system with a confirmation prompt.
+* **Custom Favicon:** KW1C branding added for recognition.
 
-Toevoegen: Nieuwe studenten inschrijven via het formulier.
+## Installation Instructions
+1. Place all files in the `htdocs` folder of your XAMPP installation.
+2. Start Apache and MySQL in the XAMPP Control Panel.
+3. Import the provided SQL file (`websitedb_haye.sql`) via phpMyAdmin.
+4. Open your browser and navigate to `http://localhost/index.php`.
 
-Bewerken: Gegevens van bestaande studenten aanpassen.
-
-Verwijderen: Studenten uit het systeem wissen.
-
-Custom Favicon: KW1C logo toegevoegd voor herkenbaarheid.
-
-Installatie-instructies:
-
-Zet de bestanden in de htdocs map van XAMPP.
-
-Start Apache en MySQL in het XAMPP Control Panel.
-
-Importeer het meegeleverde SQL-bestand (websitedb_haye.sql) via phpMyAdmin.
-
-Open de browser en ga naar http://localhost/index.php.
-
-Technische details:
-
-Taal: PHP / HTML / CSS
-
-Database: MariaDB/MySQL
-
-Framework: Bootstrap 5 (via CDN)
-
-Database-connectie via db.php
+## Technical Details
+* **Language:** PHP 8 / HTML5 / CSS3
+* **Database:** MariaDB/MySQL
+* **Framework:** Bootstrap 5 (via CDN)
+* **Connection:** Database connection handled via `db.php`
