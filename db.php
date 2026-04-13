@@ -4,11 +4,11 @@ $username = "root";
 $password = "";
 $dbname = "websitedb_haye";
 
-// Maaking the connection
+// Establishing the connection to the database
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Checken of de verbinding werkt
+// Check if the connection was successful
 if ($conn->connect_error) {
-    die("Verbinding mislukt: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>

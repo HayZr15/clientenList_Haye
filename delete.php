@@ -1,13 +1,20 @@
 <?php
 include('db.php');
 
-// WEEK 8: Securely delete using Prepared Statements
-$id = $_GET['id'];
+// Check if an ID is provided in the URL
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-$stmt = $db->prepare("DELETE FROM new1 WHERE StudentID = ?");
-$stmt->bind_param("i", $id); // "i" means integer
+    // Use $conn instead of $db (database connection from db.php)
+    $stmt = $conn->prepare("DELETE FROM new1 WHERE StudentID = ?");
+    $stmt->bind_param("i", $id);
 
-if($stmt->execute()) {
-    header("Location: index.php");
+    // Execute the deletion and redirect to home
+    if($stmt->execute()) {
+        header("Location: index.php");
+        exit();
+    } else {
+        echo "Error deleting record: " . $conn->error;
+    }
 }
 ?>

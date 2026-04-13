@@ -1,12 +1,30 @@
 <?php
 include 'db.php';
 
-// Check if there is an 'id' parameter in the URL, if so, fetch the corresponding client's data
+// Fetch existing client data if an ID is set
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM new1 WHERE StudentID = $id";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
+}
+
+// Update client data when the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['id'];
+    $v = $_POST['voornaam'];
+    $t = $_POST['tussenvoegsel'];
+    $a = $_POST['achternaam'];
+    $e = $_POST['email'];
+
+    // Update the record in the database using $conn
+    $stmt = $conn->prepare("UPDATE new1 SET Voornaam=?, Tussenvoegsel=?, Achternaam=?, Email=? WHERE StudentID=?");
+    $stmt->bind_param("ssssi", $v, $t, $a, $e, $id);
+
+    if($stmt->execute()) {
+        header("Location: index.php");
+        exit();
+    }
 }
 ?>
 
